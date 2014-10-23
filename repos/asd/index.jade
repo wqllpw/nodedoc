@@ -1,0 +1,9 @@
+extend layout
+
+block content
+    h1 Hello customized index.jade
+    - files.forEach(function(item) {
+        a(href='#{item.path}') #{item.name}
+        br
+    - })
+
