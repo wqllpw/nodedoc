@@ -1,8 +1,49 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+    padding: 0;
+    margin: 0;
+    font: 14px 'Microsoft YaHei', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+a.dir:before {
+    content: '> ';
+}
+
+#header {
+    
+    background: #262626;
+
+}
+#header_content {
+    width: 960px;
+    margin: 0 auto;
+}
+
+#logo {
+    color: #fff;
+    font-size: 24px;
+}
+#search {
+    
+}
+#path {
+    width: 960px;
+    margin: 0 auto;
+    color: #fff;
+}
+#main_content {
+    min-height: 500px;
+    width: 960px;
+    margin: 0 auto;
+}
+#main_content a{
+    font-size: 18px;
+    line-height: 46px;
+}
+#footer {
+    width: 960px;
+    margin: 0 auto;
 }

@@ -1,0 +1,1 @@
+document.getElementById('asd').innerHTML = (+new Date());

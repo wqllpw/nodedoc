@@ -30,14 +30,10 @@ function ls(dir, relPath) {
 
 }
 
-/* GET home page. */
-/*router.param('id',function(req,res,next,id){
-console.log('router param id:'+id);
-next();
-});*/
+/* GET doc */
 router.get('*',function(req,res) {
-    var //arrPath = req.url.split('/').splice(2),
-        docPath = path.join(__dirname, '../repos', req.url);
+    var requrl = res.locals.path = decodeURIComponent(req.params[0]);
+    var docPath = path.join(__dirname, '../repos', res.locals.path);
 
     //check file type
     fs.exists(docPath, function(exists){
@@ -48,19 +44,21 @@ router.get('*',function(req,res) {
                 var jadePath = path.join(docPath, 'index.jade');
 
                 fs.exists(jadePath, function(exists) {
-                    var arrFiles = ls(docPath, req.url);
+                    var arrFiles = ls(docPath, requrl);
 
                     if(exists) {
                         fs.readFile(jadePath, 'utf-8', function(err, data) {
-                            var fn = jade.compile(data, {filename: path.join(app.get('views'), 'layout.jade')});
-                            var html = fn({files: arrFiles});
+                            var fn = jade.compile(data, {
+                                    filename: path.join(app.get('views'), 'layout.jade')
+                                });
+                            var html = fn({files: arrFiles, req:req, res:res});
 
                             res.send(html);
                         });
 
                     }
                     else {
-                        res.render('doc', {files: arrFiles});
+                        res.render('doc', {files: arrFiles, req:req, res:res});
                     }
                 });
 
@@ -69,8 +67,11 @@ router.get('*',function(req,res) {
                 if(path.extname(docPath) == '.md') {
                     fs.readFile(docPath, 'utf-8', function(err, data){
 
-                        res.render('md', {html: md.parse(data)});
+                        res.render('md', {html: md.parse(data), req: req, res: res});
                     });
+                }
+                else if(/\.(?:html|htm|js|css|txt|jpg|png|gif)$/.test(requrl)) {
+                    res.sendFile(docPath);
                 }
                 else {
                     res.download(docPath);

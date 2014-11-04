@@ -1,8 +1,29 @@
+- var arrPath = res.locals.path.split('/');
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/markdown.css')
-  body
-    block content
+    head
+        meta(content="width=device-width,initial-scale=1.0,user-scalable=no",name="viewport")
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/markdown.css')
+    body
+        #header 
+            #header_content
+                #logo TeamDoc
+                #search
+                    input(type='text')
+            #path 
+                a(href='/doc') 首页
+                span /
+                - var tempLink = '/doc'
+                - arrPath.forEach(function(item, index) {
+                -   if(item) {
+                -       tempLink += '/' + item;
+                        a(href=tempLink)= item
+                        span /
+                -   }
+                - });
+        #main
+            #main_content
+                block content
+        #footer powered by search_frontend

@@ -2,6 +2,7 @@ extends layout
 
 block content
     - files.forEach(function(item) {
-    a(href='#{item.path}') #{item.name}
-    br
+    - var isDir = item.stat.isDirectory();
+        a(href=item.path,class=isDir ? 'dir' : 'file')= item.name
+        br
     - })

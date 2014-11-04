@@ -1,9 +1,9 @@
 extend layout
 
 block content
-    h1 Hello customized index.jade
+    h1(style='color:red') 111111111
     - files.forEach(function(item) {
-        a(href='#{item.path}') #{item.name}
+        a(href=item.path)= item.name
         br
     - })
 
